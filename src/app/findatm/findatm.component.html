@@ -1,0 +1,81 @@
+
+<nav class="navbar navbar-dark bg-dark">
+  <a href="#" class="navbar-brand">ATM Finder</a>
+</nav>
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <div class="col" style="padding-top:50px"></div>
+  </div>
+  <div class="row no-gutters">    
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          Search By Location
+        </div>
+        <div class="card-body">
+            
+            <form [formGroup]="searchLocationForm">
+                <div class="row no-gutters">
+                <div class="col">
+                    <input type="text" class="form-control" formControlName="location" #location placeholder="Location"/>  
+                </div>
+                <div class="col text-center">
+                        <button type="submit" class="btn btn-dark" (click)="getPlacesByText()" [disabled]="searchLocationForm.controls.location.errors" >Submit</button>                                      
+                </div>
+                <div class="col text-left align-self-center">
+                    <div class="spinner-border align-self-center" *ngIf="textSearchLoader">
+                      </div>
+                </div>    
+              </div>      
+              </form>
+            
+        </div>
+      </div>
+    </div>
+    <div class="col">
+        <div class="card">
+          <div class="card-header">
+            Search For ATMs Nearby
+          </div>
+          <div class="card-body">
+            <div class="row no-gutters">
+              <div class="col-2">
+                  <button type="submit" class="btn btn-dark" (click)="getPlacesByNearby()">Submit</button>
+              </div>
+              <div class="col text-left align-self-center">
+                  <div class="spinner-border align-self-center" *ngIf="nearByLoader">
+                    </div>
+              </div>
+            </div>                        
+          </div>       
+        </div>
+      </div>
+  </div>
+  <div class="row no-gutters">
+      <div class="col" #gmap>
+      
+        </div>
+  </div>
+  <div class="row no-gutters">
+      <div class="col" style="padding-top:50px"></div>
+    </div>
+  <div class="row no-gutters" *ngIf="txtSearchList&&txtSearchList.length>0">
+      <table class="table table-bordered table-hover">
+          <thead class="thead-dark">
+       <th>Name</th>
+       <th>Address</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let txtSe of txtSearchList">
+               <td>{{txtSe.name}}</td>
+              <td>{{txtSe.formatted_address}}</td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+  <div class="row no-gutters text-danger">
+    <div class="col text-center">
+        {{errorMsg}}
+    </div>   
+  </div>
+</div>
